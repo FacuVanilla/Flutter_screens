@@ -3,19 +3,32 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter_screen/screens/create_password_screen.dart';
 import 'package:flutter_screen/screens/login_screen.dart';
 import 'package:flutter_screen/widgets/continue_button.dart';
+import 'package:flutter_screen/widgets/text_form_field.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:flutter_screen/widgets/terms.dart'; 
 
-class CreateAccountScreen extends StatelessWidget {
-  const CreateAccountScreen({super.key});
+class CreateAccountScreen extends StatefulWidget {
+  final GlobalKey<FormState> formKey;
+
+  const CreateAccountScreen({super.key, required this.formKey});
+
+  @override
+  CreateAccountScreenState createState() => CreateAccountScreenState();
+}
+
+class CreateAccountScreenState extends State<CreateAccountScreen> {
+  bool _hasSubmitted = false; // Indicates if the form has been submitted
 
   @override
   Widget build(BuildContext context) {
+    // Determine the border color based on whether the form has been submitted
+    Color borderColor = _hasSubmitted ? const Color(0xFFCCD1D3) : const Color(0xFF473767);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
         ),
         backgroundColor: Colors.white,
         elevation: 0,
@@ -23,98 +36,121 @@ class CreateAccountScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: <Widget>[
-            const SizedBox(height: 16),
-            const Text(
-              'Create your account',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 8),
-            RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                text: "Let's start by creating your Akiba account.\nAlready have an account? ",
-                style: const TextStyle(color: Colors.black, fontSize: 16),
-                children: <TextSpan>[
-                  TextSpan(
-                    text: 'Log in',
-                    style: const TextStyle(color: Colors.red),
-                    recognizer: TapGestureRecognizer()..onTap = () {
+        child: Form(
+          key: widget.formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const SizedBox(height: 16),
+                const Text(
+                  'Create your account',
+                  style: TextStyle(
+                    fontFamily: 'Coinbase Sans',
+                    fontWeight: FontWeight.w500,
+                    fontSize: 24,
+                    color: Color(0xFF161722),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                RichText(
+                  text: TextSpan(
+                    text: "Let's start by creating your Akiba account.\nAlready have an account? ",
+                    style: const TextStyle(
+                      fontFamily: 'Coinbase Sans',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16,
+                      height: 1.5,
+                      color: Color(0xFF625E80),
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'Log in',
+                        style: const TextStyle(
+                          color: Color(0xFFE33B58),
+                          fontWeight: FontWeight.w400,
+                        ),
+                        recognizer: TapGestureRecognizer()..onTap = () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => LoginScreen()),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 32),
+                CustomTextFormField(
+                  labelText: 'First name',
+                  validator: (value) {
+                    if (value == null || value.isEmpty || value.length < 3) {
+                      return 'First name must be at least 3 characters';
+                    }
+                    return null;
+                  },
+                  borderColor: borderColor,
+                  fillColor: _hasSubmitted && !widget.formKey.currentState!.validate() ? const Color(0xFFCCD1D3) : Colors.transparent, // Adjust fillColor based on form stat
+                ),
+                CustomTextFormField(
+                  labelText: 'Last name',
+                  validator: (value) {
+                    if (value == null || value.isEmpty || value.length < 3) {
+                      return 'Last name must be at least 3 characters';
+                    }
+                    return null;
+                  },
+                  borderColor: borderColor,
+                  fillColor: _hasSubmitted && !widget.formKey.currentState!.validate() ? const Color(0xFFCCD1D3) : Colors.transparent, // Adjust fillColor based on form state
+                ),
+                CustomTextFormField(
+                  labelText: 'Email address',
+                  validator: (value) {
+                    if (value == null || value.isEmpty || !EmailValidator.validate(value)) {
+                      return 'Enter a valid email address';
+                    }
+                    return null;
+                  },
+                  borderColor: borderColor,
+                  fillColor: _hasSubmitted && !widget.formKey.currentState!.validate() ? const Color(0xFFCCD1D3) : Colors.transparent, // Adjust fillColor based on form state
+                ),
+                CustomTextFormField(
+                  labelText: 'Mobile number',
+                  keyboardType: TextInputType.number,
+                  validator: (value) {
+                    if (value == null || value.isEmpty || value.length != 11 || !RegExp(r'^\d{11}$').hasMatch(value)) {
+                      return 'Mobile number must be 11 digits';
+                    }
+                    return null;
+                  },
+                  borderColor: borderColor,
+                  fillColor: _hasSubmitted && !widget.formKey.currentState!.validate() ? const Color(0xFFCCD1D3) : Colors.transparent, // Adjust fillColor based on form state
+                ),
+                const SizedBox(height: 32),
+                Terms(
+                  onTermsTap: () {
+                  },
+                  onPrivacyTap: () {
+                  },
+                ),
+                const SizedBox(height: 16),
+                ContinueButton(
+                  onPressed: () {
+                    setState(() {
+                      _hasSubmitted = true; // Update submission state
+                    });
+                    if (widget.formKey.currentState!.validate()) {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const LoginScreen()),
+                        MaterialPageRoute(builder: (context) => const CreatePasswordScreen()),
                       );
-                    },
-                  ),
-                ],
-              ),
+                    }
+                  },
+                  borderColor: _hasSubmitted && (widget.formKey.currentState?.validate() == false) ? const Color(0xFFCCD1D3) : Colors.red, // Adjust based on validation
+                ),
+              ],
             ),
-            const SizedBox(height: 32),
-            const Text('First name', style: TextStyle(fontSize: 16)),
-            TextFormField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Text('Last name', style: TextStyle(fontSize: 16)),
-            TextFormField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Text('Email address', style: TextStyle(fontSize: 16)),
-            TextFormField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Text('Mobile number', style: TextStyle(fontSize: 16)),
-            TextFormField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 32),
-            RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                text: 'By continuing, you agree to Akiba’s ',
-                style: const TextStyle(color: Colors.black, fontSize: 14),
-                children: <TextSpan>[
-                  TextSpan(
-                    text: 'Terms of Service',
-                    style: const TextStyle(color: Colors.red),
-                    recognizer: TapGestureRecognizer()..onTap = () {
-                    },
-                  ),
-                  const TextSpan(
-                    text: ' and acknowledge our ',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  TextSpan(
-                    text: 'Privacy Policy.',
-                    style: const TextStyle(color: Colors.red),
-                    recognizer: TapGestureRecognizer()..onTap = () {
-                    },
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 16),
-            ContinueButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CreatePasswordScreen()),
-                );
-              },
-            ),
-          ],
+          ),
         ),
       ),
     );

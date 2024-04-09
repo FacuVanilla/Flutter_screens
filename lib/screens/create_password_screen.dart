@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screen/screens/account_created_screen.dart';
 import 'package:flutter_screen/widgets/continue_button.dart';
+import 'package:flutter_screen/widgets/terms.dart';
 
 class CreatePasswordScreen extends StatefulWidget {
   const CreatePasswordScreen({super.key});
@@ -14,7 +15,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
 
   void _togglePasswordVisibility() {
     setState(() {
-          _obscureText = !_obscureText;
+      _obscureText = !_obscureText;
     });
   }
 
@@ -26,79 +27,112 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Align(
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(28, 20, 28, 16), // Adjusted top padding
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Set your password',
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 24),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Set your password',
+                          style: TextStyle(
+                            fontFamily: 'Coinbase Sans',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 24,
+                            height: 35 / 24,
+                            color: Color(0xFF161722),
+                          ),
+                        ),
+                        Image.asset('images/lock.png'),
+                      ],
                     ),
-                    SizedBox(width: 10),
-                    Icon(Icons.lock_outline, size: 30), 
+                    const SizedBox(height: 8.0),
+                    const Text(
+                      'Create your password',
+                      style: TextStyle(
+                        fontFamily: 'Coinbase Sans',
+                        fontSize: 16.0,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    const SizedBox(height: 32.0),
+                    const Text(
+                      'Password',
+                      style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8.0),
+                    TextField(
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        hintText: 'Enter your password',
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _obscureText ? Icons.visibility_off : Icons.visibility,
+                          ),
+                          onPressed: _togglePasswordVisibility,
+                        ),
+                      ),
+                      obscureText: _obscureText,
+                    ),
+                    const SizedBox(height: 24.0),
+                    ..._buildPasswordCriteria(),
+                    const Divider(color: Colors.grey),
+                    const SizedBox(height: 24.0),
+                    const Text(
+                      'Referral code (optional)',
+                      style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8.0),
+                    const TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Enter your referral code',
+                      ),
+                    ),
+                    const SizedBox(height: 8.0),
+                    const Text(
+                      'Please enter an invite code if you have one.',
+                      style: TextStyle(fontSize: 12.0, color: Colors.grey),
+                    ),
+                    const SizedBox(height: 24.0),
                   ],
                 ),
               ),
-              const SizedBox(height: 8.0),
-              const Align(
-                alignment: Alignment.center,
-                child: Text(
-                  'Create your password',
-                  style: TextStyle(fontSize: 16.0, color: Colors.grey),
-                ),
-              ),
-              const SizedBox(height: 32.0),
-              const Text('Password', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8.0),
-              TextField(
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  hintText: 'Enter your password',
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _obscureText ? Icons.visibility_off : Icons.visibility,
-                    ),
-                    onPressed: _togglePasswordVisibility,
-                  ),
-                ),
-                obscureText: _obscureText,
-              ),
-              const SizedBox(height: 24.0),
-              ..._buildPasswordCriteria(),
-              const Divider(color: Colors.grey), 
-              const SizedBox(height: 24.0),
-              const Text('Referral code (optional)', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8.0),
-              const TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter your referral code',
-                ),
-              ),
-              const SizedBox(height: 8.0),
-              const Text(
-                'Please enter an invite code if you have one.',
-                style: TextStyle(fontSize: 12.0, color: Colors.grey),
-              ),
-              const SizedBox(height: 24.0),
-              ContinueButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const AccountCreatedScreen()),
-                  );
+            ),
+          ),
+           Padding(
+            padding: const EdgeInsets.fromLTRB(32, 20, 32, 16),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Terms(
+                onTermsTap: () {
+                  // Handle Terms of Service tap
+                },
+                onPrivacyTap: () {
+                  // Handle Privacy Policy tap
                 },
               ),
-            ],
+            ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 28.0),
+            child: ContinueButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AccountCreatedScreen()),
+                );
+              },
+            ),
+          ),
+          const SizedBox(height: 16.0),
+        ],
       ),
     );
   }
@@ -109,20 +143,20 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: Colors.transparent, 
+              color: Colors.transparent,
               border: Border.all(
-                color: Colors.green, 
-                width: 2, 
+                color: Colors.green,
+                width: 2,
               ),
-              shape: BoxShape.rectangle, 
-              borderRadius: BorderRadius.circular(3), 
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(3),
             ),
-            width: 24, 
-            height: 24, 
+            width: 24,
+            height: 24,
             child: const Icon(
               Icons.check,
               color: Colors.green,
-              size: 18, 
+              size: 18,
             ),
           ),
           const SizedBox(width: 8.0),
@@ -134,7 +168,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
           ),
         ],
       ),
-      const SizedBox(height: 8.0),
+     const SizedBox(height: 8.0),
       Row(
         children: [
           Container(
@@ -167,3 +201,4 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
     ];
   }
 }
+   

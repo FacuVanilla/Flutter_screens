@@ -3,9 +3,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter_screen/screens/create_account_screen.dart';
 import 'package:flutter_screen/screens/dashboard_screen.dart';
 import 'package:flutter_screen/widgets/continue_button.dart'; 
-
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  LoginScreen({super.key});
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>(); // Define the formKey here
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class LoginScreen extends StatelessWidget {
               height: backgroundHeight,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('images/dashboard.jpg'), 
+                  image: AssetImage('images/smile.png'), 
                   fit: BoxFit.cover,
                 ),
               ),
@@ -64,7 +65,7 @@ class LoginScreen extends StatelessWidget {
                                 ..onTap = () {
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => const CreateAccountScreen()),
+                                    MaterialPageRoute(builder: (context) => CreateAccountScreen(formKey: GlobalKey<FormState>())),
                                   );
                                 },
                             ),

@@ -14,10 +14,10 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(seconds: 3), () {
-        Navigator.push(
+      Future.delayed(const Duration(seconds: 10), () {
+        Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const CreateAccountScreen()),
+          MaterialPageRoute(builder: (context) => CreateAccountScreen(formKey: GlobalKey<FormState>())),
         );
       });
     });
@@ -25,39 +25,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.red,
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.center,
-            child: Container(), 
-          ),
-          Positioned(
-            top: MediaQuery.of(context).size.height / 2 - 60.0,
-            left: MediaQuery.of(context).size.width / 2 - 60.0,
-            child: Container(
-              width: 60.0,
-              height: 60.0,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-              ),
-            ),
-          ),
-          Positioned(
-            top: MediaQuery.of(context).size.height / 2 + 20.0, 
-            left: MediaQuery.of(context).size.width / 2 + 20.0,
-            child: Container(
-              width: 30.0,
-              height: 30.0,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-              ),
-            ),
-          ),
-        ],
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: const Color(0xFFE33B58),
+        child: Center(
+          child: Image.asset('images/dots.png'),
+        ),
       ),
     );
   }
