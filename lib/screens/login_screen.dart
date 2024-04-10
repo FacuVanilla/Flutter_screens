@@ -3,10 +3,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter_screen/screens/create_account_screen.dart';
 import 'package:flutter_screen/screens/dashboard_screen.dart';
 import 'package:flutter_screen/widgets/continue_button.dart'; 
+
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>(); // Define the formKey here
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>(); 
 
   @override
   Widget build(BuildContext context) {
@@ -14,32 +15,44 @@ class LoginScreen extends StatelessWidget {
     final screenHeight = mediaQuery.size.height;
 
     final double backgroundHeight = screenHeight * 0.4;
-    final double cardMarginVertical = screenHeight * 0.05;
-    const double cardPadding = 20.0;
+    const double cardTopPadding = 20.0; 
 
     return Scaffold(
-      body: SingleChildScrollView(
+     body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
-              height: backgroundHeight,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('images/smile.png'), 
-                  fit: BoxFit.cover,
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  height: backgroundHeight,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('images/smile.png'), 
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-              ),
+                 Positioned(
+                  top: screenHeight * 0.1, 
+                  child: Image.asset('images/akiba.png'),
+                ),
+              ],
             ),
-            SizedBox(height: cardMarginVertical),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: cardPadding),
+            Transform.translate(
+              offset: const Offset(0, -cardTopPadding), 
               child: Card(
-                elevation: 5.0, 
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+                color: Colors.white,
+                margin: EdgeInsets.zero, 
+                elevation: 5.0,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(24.0),
+                    topRight: Radius.circular(24.0),
+                  ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(cardPadding),
+                  padding: const EdgeInsets.all(20.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
@@ -76,6 +89,8 @@ class LoginScreen extends StatelessWidget {
                       const Text('Email address or username', style: TextStyle(fontSize: 16)),
                       const TextField(
                         decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Color(0xFFEEEEEE), 
                           hintText: 'kiks_faboro',
                           border: OutlineInputBorder(),
                         ),
@@ -110,10 +125,13 @@ class LoginScreen extends StatelessWidget {
                         child: InkWell(
                           onTap: () {
                           },
-                          child: const Text(
+                           child: const Text(
                             'Reset password?',
-                            style: TextStyle(color: Colors.red, decoration: TextDecoration.underline),
-                          ),
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 16, 
+                            ),
+                        ),
                         ),
                       ),
                     ],

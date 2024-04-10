@@ -21,7 +21,7 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0), // Space below the TextFormField
+      padding: const EdgeInsets.only(bottom: 16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -32,11 +32,11 @@ class CustomTextFormField extends StatelessWidget {
               fontSize: 13,
             ),
           ),
-          const SizedBox(height: 4), // Reduced space to bring label closer to the input box
+          const SizedBox(height: 4), 
           TextFormField(
             controller: controller,
             decoration: InputDecoration(
-              contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0), // Add padding inside the input box
+              contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0), 
               border: OutlineInputBorder(
                 borderSide: BorderSide(color: borderColor),
               ),

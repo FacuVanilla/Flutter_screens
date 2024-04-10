@@ -32,7 +32,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(28, 20, 28, 16), // Adjusted top padding
+                padding: const EdgeInsets.fromLTRB(28, 20, 28, 16), 
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -112,10 +112,8 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
               alignment: Alignment.centerLeft,
               child: Terms(
                 onTermsTap: () {
-                  // Handle Terms of Service tap
                 },
                 onPrivacyTap: () {
-                  // Handle Privacy Policy tap
                 },
               ),
             ),

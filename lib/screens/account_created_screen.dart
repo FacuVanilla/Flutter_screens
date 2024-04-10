@@ -10,7 +10,7 @@ class AccountCreatedScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween, // This will push the button to the bottom
+        mainAxisAlignment: MainAxisAlignment.spaceBetween, 
         children: [
           const Expanded(
             child: Padding(

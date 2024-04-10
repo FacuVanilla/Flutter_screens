@@ -15,8 +15,8 @@ class Terms extends StatelessWidget {
           fontFamily: 'Coinbase Sans',
           fontSize: 14,
           fontWeight: FontWeight.w400,
-          height: 22 / 14, // Flutter uses a multiplier for line height
-          color: Colors.black, // Default text color
+          height: 22 / 14, 
+          color: Colors.black, 
         ),
         children: <TextSpan>[
           const TextSpan(
@@ -24,7 +24,7 @@ class Terms extends StatelessWidget {
           ),
           TextSpan(
             text: 'Terms of Service',
-            style: const TextStyle(color: Color(0xFFE33B58)), // Updated color
+            style: const TextStyle(color: Color(0xFFE33B58)), 
             recognizer: TapGestureRecognizer()..onTap = onTermsTap,
           ),
           const TextSpan(
@@ -32,7 +32,7 @@ class Terms extends StatelessWidget {
           ),
           TextSpan(
             text: 'Privacy Policy.',
-            style: const TextStyle(color: Color(0xFFE33B58)), // Updated color
+            style: const TextStyle(color: Color(0xFFE33B58)), 
             recognizer: TapGestureRecognizer()..onTap = onPrivacyTap,
           ),
         ],

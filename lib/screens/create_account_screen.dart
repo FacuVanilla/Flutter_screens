@@ -17,11 +17,10 @@ class CreateAccountScreen extends StatefulWidget {
 }
 
 class CreateAccountScreenState extends State<CreateAccountScreen> {
-  bool _hasSubmitted = false; // Indicates if the form has been submitted
+  bool _hasSubmitted = false; 
 
   @override
   Widget build(BuildContext context) {
-    // Determine the border color based on whether the form has been submitted
     Color borderColor = _hasSubmitted ? const Color(0xFFCCD1D3) : const Color(0xFF473767);
 
     return Scaffold(
@@ -90,7 +89,7 @@ class CreateAccountScreenState extends State<CreateAccountScreen> {
                     return null;
                   },
                   borderColor: borderColor,
-                  fillColor: _hasSubmitted && !widget.formKey.currentState!.validate() ? const Color(0xFFCCD1D3) : Colors.transparent, // Adjust fillColor based on form stat
+                  fillColor: _hasSubmitted && !widget.formKey.currentState!.validate() ? const Color(0xFFCCD1D3) : Colors.transparent, 
                 ),
                 CustomTextFormField(
                   labelText: 'Last name',
@@ -101,7 +100,7 @@ class CreateAccountScreenState extends State<CreateAccountScreen> {
                     return null;
                   },
                   borderColor: borderColor,
-                  fillColor: _hasSubmitted && !widget.formKey.currentState!.validate() ? const Color(0xFFCCD1D3) : Colors.transparent, // Adjust fillColor based on form state
+                  fillColor: _hasSubmitted && !widget.formKey.currentState!.validate() ? const Color(0xFFCCD1D3) : Colors.transparent, 
                 ),
                 CustomTextFormField(
                   labelText: 'Email address',
@@ -112,7 +111,7 @@ class CreateAccountScreenState extends State<CreateAccountScreen> {
                     return null;
                   },
                   borderColor: borderColor,
-                  fillColor: _hasSubmitted && !widget.formKey.currentState!.validate() ? const Color(0xFFCCD1D3) : Colors.transparent, // Adjust fillColor based on form state
+                  fillColor: _hasSubmitted && !widget.formKey.currentState!.validate() ? const Color(0xFFCCD1D3) : Colors.transparent, 
                 ),
                 CustomTextFormField(
                   labelText: 'Mobile number',
@@ -124,7 +123,7 @@ class CreateAccountScreenState extends State<CreateAccountScreen> {
                     return null;
                   },
                   borderColor: borderColor,
-                  fillColor: _hasSubmitted && !widget.formKey.currentState!.validate() ? const Color(0xFFCCD1D3) : Colors.transparent, // Adjust fillColor based on form state
+                  fillColor: _hasSubmitted && !widget.formKey.currentState!.validate() ? const Color(0xFFCCD1D3) : Colors.transparent, 
                 ),
                 const SizedBox(height: 32),
                 Terms(
@@ -137,7 +136,7 @@ class CreateAccountScreenState extends State<CreateAccountScreen> {
                 ContinueButton(
                   onPressed: () {
                     setState(() {
-                      _hasSubmitted = true; // Update submission state
+                      _hasSubmitted = true; 
                     });
                     if (widget.formKey.currentState!.validate()) {
                       Navigator.push(
