@@ -69,6 +69,13 @@ flutter:
     - images/lock.png
     - images/smile.png
     - images/akiba.png
+    - images/complete.png
+    - images/notification.png
+    - images/quickaccess.png
+    - images/slider.png
+    - images/tabbar.png
+    - images/transaction.png
+    - images/icon.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

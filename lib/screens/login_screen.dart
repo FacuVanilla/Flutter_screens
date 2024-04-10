@@ -33,16 +33,16 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                 Positioned(
-                  top: screenHeight * 0.1, 
-                  child: Image.asset('images/akiba.png'),
-                ),
+                // Positioned(
+                 // top: screenHeight * 0.1, 
+                 // child: Image.asset('images/akiba.png'),
+               // ),
               ],
             ),
             Transform.translate(
               offset: const Offset(0, -cardTopPadding), 
               child: Card(
-                color: Colors.white,
+                color: const Color(0xFFFFFFFF), 
                 margin: EdgeInsets.zero, 
                 elevation: 5.0,
                 shape: const RoundedRectangleBorder(
