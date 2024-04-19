@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screen/screens/splash_screen.dart';
+import 'package:flutter_screen/screens/dashboard_screen.dart';
 
 
 void main() {
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: const SplashScreen(),
+      home: const DashboardScreen(),
     );
   }
 }
